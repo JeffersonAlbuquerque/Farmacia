@@ -1,0 +1,391 @@
+// Variáveis
+$primary-color: #0077ff;
+$secondary-color: #00aa55;
+$text-color: #333;
+$light-gray: #f5f5f5;
+$medium-gray: #e0e0e0;
+$dark-gray: #777;
+$error-color: #ff4444;
+$success-color: #00c851;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition($property: all, $duration: 0.3s) {
+  transition: $property $duration ease;
+}
+
+// Estilos
+.carrinhoOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateX(100%);
+  @include transition;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.carrinhoContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Cabeçalho
+.carrinhoHeader {
+  border-bottom: 1px solid $medium-gray;
+  padding: 1rem;
+  background: white;
+  position: relative;
+  z-index: 10;
+
+  .headerContent {
+    @include flex-center;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: $text-color;
+      @include flex-center;
+
+      .cartIcon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        fill: none;
+        stroke: $primary-color;
+        stroke-width: 2;
+      }
+    }
+  }
+
+  .closeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    @include flex-center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: $dark-gray;
+      stroke-width: 2;
+      @include transition;
+    }
+
+    &:hover svg {
+      stroke: $error-color;
+    }
+  }
+
+  .itensCount {
+    color: $dark-gray;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+}
+
+// Corpo do carrinho
+.carrinhoBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.carrinhoVazio {
+  text-align: center;
+  padding: 2rem 0;
+
+  .emptyCartIcon {
+    width: 80px;
+    height: 80px;
+    stroke: $medium-gray;
+    stroke-width: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    color: $text-color;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $dark-gray;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.continueButton {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  @include transition;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+
+// Lista de produtos
+.produtosLista {
+  margin-bottom: 1.5rem;
+}
+
+.produtoItem {
+  display: flex;
+  padding: 1rem 0;
+  border-bottom: 1px solid $light-gray;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.produtoImagem {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-right: 1rem;
+  background: $light-gray;
+}
+
+.produtoInfo {
+  flex: 1;
+}
+
+.produtoHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.produtoNome {
+  margin: 0;
+  font-size: 1rem;
+  color: $text-color;
+  flex: 1;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 0 10px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke: $dark-gray;
+    stroke-width: 2;
+    @include transition;
+  }
+
+  &:hover svg {
+    stroke: $error-color;
+  }
+}
+
+.produtoCategoria {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: $dark-gray;
+  background: $light-gray;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.produtoControles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantidadeControl {
+  display: flex;
+  align-items: center;
+  border: 1px solid $medium-gray;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.quantidadeButton {
+  background: $light-gray;
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  @include flex-center;
+  @include transition;
+
+  &:hover {
+    background: $medium-gray;
+  }
+}
+
+.quantidadeValue {
+  width: 30px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.produtoPreco {
+  font-weight: 600;
+  color: $primary-color;
+}
+
+// Cupom de desconto
+.cupomContainer {
+  display: flex;
+  margin: 1.5rem 0;
+  border: 1px solid $medium-gray;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cupomInput {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  font-size: 0.9rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.cupomButton {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: 0 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  @include transition;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+
+// Resumo do pedido
+.resumoPedido {
+  background: $light-gray;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.resumoLinha {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.resumoTotal {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid $medium-gray;
+  font-size: 1.1rem;
+}
+
+.freteGratis {
+  color: $success-color;
+  font-weight: 500;
+}
+
+// Rodapé
+.carrinhoFooter {
+  border-top: 1px solid $medium-gray;
+  padding: 1rem;
+  background: white;
+}
+
+.finalizarButton {
+  width: 100%;
+  background: $secondary-color;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  @include flex-center;
+  @include transition;
+
+  &:hover {
+    background: darken($secondary-color, 10%);
+  }
+
+  .arrowIcon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    stroke: white;
+    stroke-width: 2;
+  }
+}
+
+.paymentMethods {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+
+  img {
+    height: 25px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    @include transition;
+
+    &:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .carrinhoOverlay {
+    max-width: 100%;
+  }
+
+  .produtoItem {
+    flex-direction: column;
+  }
+
+  .produtoImagem {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    margin-bottom: 1rem;
+  }
+}

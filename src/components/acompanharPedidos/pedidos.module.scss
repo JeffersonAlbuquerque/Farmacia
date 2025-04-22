@@ -1,0 +1,257 @@
+.pedidos {
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 120px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.titulo {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Estilo para quando não há pedidos */
+.semPedidos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.semPedidos p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin: 1.5rem 0;
+}
+
+.icone {
+  width: 64px;
+  height: 64px;
+  color: #bdc3c7;
+  stroke-width: 1.5;
+}
+
+/* Lista de pedidos */
+.listaPedidos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Card de pedido */
+.pedidoCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pedidoCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pedidoCabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.pedidoNumero {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.pedidoData {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.pedidoStatus {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Status colors */
+.pedidoStatus.processando {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.pedidoStatus.enviado {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.pedidoStatus.entregue {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.pedidoStatus.cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Itens do pedido */
+.pedidoItens {
+  padding: 1rem 1.5rem;
+}
+
+.pedidoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.pedidoItem:last-child {
+  border-bottom: none;
+}
+
+.itemQuantidade {
+  color: #7f8c8d;
+  min-width: 30px;
+}
+
+.itemNome {
+  flex-grow: 1;
+  padding: 0 1rem;
+}
+
+.itemPreco {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.pedidoMaisItens {
+  text-align: center;
+  padding: 0.5rem;
+  color: #3498db;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Rodapé do pedido */
+.pedidoRodape {
+  padding: 1rem 1.5rem;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pedidoTotal {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.pedidoTotal span {
+  color: #7f8c8d;
+  margin-right: 0.5rem;
+}
+
+.pedidoTotal strong {
+  color: #2c3e50;
+  font-size: 1.3rem;
+}
+
+.pedidoAcoes {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Botões */
+.botaoPrimario,
+.botaoSecundario,
+.botaoTerciario {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.botaoPrimario {
+  background-color: #3498db;
+  color: white;
+  border: none;
+}
+
+.botaoPrimario:hover {
+  background-color: #2980b9;
+}
+
+.botaoSecundario {
+  background-color: transparent;
+  color: #3498db;
+  border: 1px solid #3498db;
+}
+
+.botaoSecundario:hover {
+  background-color: #f0f8ff;
+}
+
+.botaoTerciario {
+  background-color: transparent;
+  color: #7f8c8d;
+  border: 1px solid #ddd;
+}
+
+.botaoTerciario:hover {
+  background-color: #f5f5f5;
+}
+
+.botaoSecundario svg,
+.botaoTerciario svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 0.5rem;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .pedidos {
+    padding: 3rem 2rem;
+  }
+
+  .titulo {
+    font-size: 2.5rem;
+    text-align: left;
+  }
+
+  .listaPedidos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .listaPedidos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
