@@ -17,11 +17,6 @@ import banner4 from '../../assets/Banners/Banner4.png'
 import banner5 from '../../assets/Banners/Banner5.png'
 import banner6 from '../../assets/Banners/Banner6.png'
 
-import prod1 from '../../assets/Produtos/Prod1.jpg'
-import prod2 from '../../assets/Produtos/Prod2.jpg'
-import prod3 from '../../assets/Produtos/Prod3.jpg'
-import prod4 from '../../assets/Produtos/Prod4.jpg'
-import prod5 from '../../assets/Produtos/Prod5.jpg'
 
 export default function Inicio() {
     // Estados (mantidos como no original)
