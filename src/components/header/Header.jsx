@@ -1,71 +1,72 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import s from './header.module.scss'
-import LoginU from '../../Pages/LoginUsuario/LoginCadastro';
-import Inicio from '../../Pages/Inicio/Inicio.jsx'
-import CarrinhoCompras from '../../components/carrinhoCompras/Carrinho.jsx'
-import PagePedidos from '../../components/acompanharPedidos/Pedidos.jsx'
+// Importa o Link do react-router-dom para navegação interna entre páginas
+import { Link } from "react-router-dom";
 
-//images 
+// Importa os estilos do módulo SCSS específico do Header
+import s from './header.module.scss';
 
-import logoW from '../../assets/logoRaiaWebSite.png'
-import lupa from '../../assets/lupa.png'
-import usuario from '../../assets/usuario.png'
-import pedidos from '../../assets/pedidos.png'
-import carrinho from '../../assets/carrinhoCompras.png'
+// Importa imagens que serão usadas no cabeçalho
+import logoW from '../../assets/logoRaiaWebSite.png';
+import lupa from '../../assets/lupa.png';
+import usuario from '../../assets/usuario.png';
+import pedidos from '../../assets/pedidos.png';
+import carrinhoIcon from '../../assets/carrinhoCompras.png';
 
-
-
-export default function Header() {
-
+// Componente Header recebe a função toggleCarrinho via props
+export default function Header({ toggleCarrinho }) {
     return (
-        <BrowserRouter>
-            <header className={s.header}>
-                <section className={s.headerFilho}>
-                    <Link className={s.link} to='/'><img className={s.logo} src={logoW} alt="logo-site" /></Link>
+        // Container principal do cabeçalho
+        <header className={s.header}>
+            <section className={s.headerFilho}>
+                {/* Logo da empresa com link para a página inicial */}
+                <Link className={s.link} to='/'>
+                    <img className={s.logo} src={logoW} alt="logo-site" />
+                </Link>
 
-                    <section className={s.barraDeBusca}>
-                        <input type="search" name="" id="" placeholder="O que você está buscando?" required />
-                        <img src={lupa} alt="" />
-                    </section>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link className={s.link} to='/login'>
-                                    <img src={usuario} alt="pedidos" />
-                                    <div>
-                                        <span>Acompanhar</span>
-                                        <span>Pedidos</span>
-                                    </div>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className={s.link} to='/pedidos'>
-                                    <img src={pedidos} alt="pedidos" />
-                                    <div>
-                                        <span>Acompanhar</span>
-                                        <span>Pedidos</span>
-                                    </div>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className={s.link} to='/carrinhoCompras'>
-                                    <img src={carrinho} alt="pedidos" />
-                                    <div>
-                                        <span>Acompanhar</span>
-                                        <span>Pedidos</span>
-                                    </div>
-                                </Link>
-                            </li>
-                        </ul>
-                    </nav>
+                {/* Barra de busca com campo de input e ícone de lupa */}
+                <section className={s.barraDeBusca}>
+                    <input type="search" placeholder="O que você está buscando?" required />
+                    <img src={lupa} alt="Buscar" />
                 </section>
-            </header>
-            <Routes>
-                <Route path='/' element={<Inicio />} />
-                <Route path='/login' element={<LoginU />} />
-                <Route path='/pedidos' element={<PagePedidos />} />
-                <Route path='/carrinhoCompras' element={<CarrinhoCompras/>} />
-            </Routes>
-        </BrowserRouter>
-    )
+
+                {/* Menu de navegação do usuário */}
+                <nav>
+                    <ul>
+                        {/* Link para login ou cadastro */}
+                        <li>
+                            <Link className={s.link} to='/login'>
+                                <img src={usuario} alt="Login" />
+                                <div>
+                                    <span>Entrar</span>
+                                    <span>ou Cadastrar</span>
+                                </div>
+                            </Link>
+                        </li>
+
+                        {/* Link para acompanhar os pedidos */}
+                        <li>
+                            <Link className={s.link} to='/pedidos'>
+                                <img src={pedidos} alt="Pedidos" />
+                                <div>
+                                    <span>Acompanhar</span>
+                                    <span>Pedidos</span>
+                                </div>
+                            </Link>
+                        </li>
+
+                        {/* Botão para abrir o modal do carrinho - chama a função toggleCarrinho */}
+                        <li>
+                            {/* Substituímos o Link por um botão porque não é uma navegação de rota */}
+                            <button className={`${s.link} ${s.btnCarrinho}`} onClick={toggleCarrinho}>
+                                <img src={carrinhoIcon} alt="Carrinho" />
+                                <div>
+                                    <span>Seu</span>
+                                    <span>Carrinho</span>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+        </header>
+    );
 }

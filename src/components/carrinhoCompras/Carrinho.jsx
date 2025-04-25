@@ -1,25 +1,10 @@
 import { useState } from "react";
 import s from "./carrinho.module.scss";
 
-const mockCart = [
-    {
-        id: 2,
-        nome: "Paracetamol 750mg - Com 12 comprimidos",
-        preco: 14.5,
-        qtd: 1,
-        img: "#", // Adicione o link da imagem aqui
-        categoria: "Antitérmico"
-    }
-];
 
-const total = mockCart.reduce((sum, item) => sum + item.preco * item.qtd, 0);
 
-export default function Carrinho() {
-    const [isOpen, setIsOpen] = useState(true);  // Controle do estado aberto/fechado
-
-    const toggleCarrinho = () => {
-        setIsOpen(!isOpen);
-    };
+export default function Carrinho({ carrinho, setCarrinho, isOpen, toggleCarrinho }) {
+    const total = carrinho.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
     return (
         <div className={`${s.carrinhoOverlay} ${isOpen ? s.open : ''}`}>
@@ -39,12 +24,12 @@ export default function Carrinho() {
                             </svg>
                         </button>
                     </div>
-                    <div className={s.itensCount}>{mockCart.length} {mockCart.length === 1 ? 'item' : 'itens'}</div>
+                    <div className={s.itensCount}>{carrinho.length} {carrinho.length === 1 ? 'item' : 'itens'}</div>
                 </div>
 
                 {/* Corpo do carrinho */}
                 <div className={s.carrinhoBody}>
-                    {mockCart.length === 0 ? (
+                    {carrinho.length === 0 ? (
                         <div className={s.carrinhoVazio}>
                             <svg className={s.emptyCartIcon} viewBox="0 0 24 24">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -58,9 +43,9 @@ export default function Carrinho() {
                     ) : (
                         <>
                             <div className={s.produtosLista}>
-                                {mockCart.map((item) => (
+                                {carrinho.map((item) => (
                                     <div className={s.produtoItem} key={item.id}>
-                                        <img src={item.img} alt={item.nome} className={s.produtoImagem} />
+                                        <img src={item.img_url} alt={item.nome} className={s.produtoImagem} />
                                         <div className={s.produtoInfo}>
                                             <div className={s.produtoHeader}>
                                                 <h3 className={s.produtoNome}>{item.nome}</h3>
@@ -74,7 +59,7 @@ export default function Carrinho() {
                                             <div className={s.produtoControles}>
                                                 <div className={s.quantidadeControl}>
                                                     <button className={s.quantidadeButton}>-</button>
-                                                    <span className={s.quantidadeValue}>{item.qtd}</span>
+                                                    <span className={s.quantidadeValue}>{item.quantidade}</span>
                                                     <button className={s.quantidadeButton}>+</button>
                                                 </div>
                                                 <span className={s.produtoPreco}>
@@ -120,7 +105,7 @@ export default function Carrinho() {
                 </div>
 
                 {/* Rodapé (apenas quando tem itens) */}
-                {mockCart.length > 0 && (
+                {carrinho.length > 0 && (
                     <div className={s.carrinhoFooter}>
                         <button className={s.finalizarButton}>
                             Finalizar Compra

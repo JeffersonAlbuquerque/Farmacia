@@ -1,53 +1,54 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { useState, useEffect } from "react";
 import axios from "axios";
-// Estilos do Swiper
-import 'swiper/css';
-import 'swiper/css/pagination';
+import s from '../../Pages/Inicio/inicio.module.scss';
 
-import s from './inicio.module.scss';
-//Carrousel
+// Componentes separados
+import CategoriasNav from '../../components/categorias/CategoriasNav';
+import BannerCarousel from '../../components/bannerCarousel/BannerCarousel';
+import ItensDestaque from '../../components/itensCategoria/ItensDestaque';
 
-import banner1 from '../../assets/Banners/Banner1.png'
-import banner2 from '../../assets/Banners/Banner2.png'
-import banner3 from '../../assets/Banners/Banner3.png'
-import banner4 from '../../assets/Banners/Banner4.png'
-import banner5 from '../../assets/Banners/Banner5.png'
-import banner6 from '../../assets/Banners/Banner6.png'
+// Imagens do Banner
+import banner1 from '../../assets/Banners/Banner1.png';
+import banner2 from '../../assets/Banners/Banner2.png';
+import banner3 from '../../assets/Banners/Banner3.png';
+import banner4 from '../../assets/Banners/Banner4.png';
+import banner5 from '../../assets/Banners/Banner5.png';
+import banner6 from '../../assets/Banners/Banner6.png';
 
-
-export default function Inicio() {
-    // Estados (mantidos como no original)
-    const [bannerRemedio, setbannerRemedio] = useState([banner1, banner2, banner3, banner4, banner5, banner6]);
+export default function Inicio({ carrinho, setCarrinho }) {
+    const [bannerRemedio, setBannerRemedio] = useState([banner1, banner2, banner3, banner4, banner5, banner6]);
     const [medicamentos, setMedicamentos] = useState([]);
-    const [addCart, setAddCart] = useState([]);
 
-    // Função para adicionar ao carrinho com quantidade
     const adicionarProdutoCarrinho = (produtoId, quantidade = 1) => {
         const produtoSelecionado = medicamentos.find(prod => prod.id === produtoId);
-        if (produtoSelecionado) {
-            const itemsToAdd = Array(quantidade).fill(produtoSelecionado);
-            setAddCart(prev => [...prev, ...itemsToAdd]);
-        }
-    };
+        if (!produtoSelecionado) return;
 
-    // Função para listar medicamentos (mantida como no original)
-    const listarMedicamentos = async () => {
-        try {
-            const resposta = await axios.get("https://bancodadosfarmacia.onrender.com/produtosCadastrados");
-            setMedicamentos(resposta.data);
-        } catch (error) {
-            console.error("Erro ao buscar medicamento", error);
-        }
+        setCarrinho(prevCarrinho => {
+            const existente = prevCarrinho.find(item => item.id === produtoId);
+            if (existente) {
+                return prevCarrinho.map(item =>
+                    item.id === produtoId
+                        ? { ...item, quantidade: item.quantidade + quantidade }
+                        : item
+                );
+            }
+            return [...prevCarrinho, { ...produtoSelecionado, quantidade }];
+        });
     };
 
     useEffect(() => {
+        const listarMedicamentos = async () => {
+            try {
+                const resposta = await axios.get("https://bancodadosfarmacia.onrender.com/produtosCadastrados");
+                setMedicamentos(resposta.data);
+            } catch (error) {
+                console.error("Erro ao buscar medicamento", error);
+            }
+        };
+
         listarMedicamentos();
     }, []);
 
-    // Categorias para navegação
     const categoriasMenu = [
         { nome: "Dor e Febre", id: "dor-febre" },
         { nome: "Infantil", id: "infantil" },
@@ -57,78 +58,23 @@ export default function Inicio() {
         { nome: "Beleza", id: "beleza" },
         { nome: "Sistema Digestivo", id: "sistema-digestivo" },
         { nome: "Higiene", id: "higiene" },
-        { nome: "Conveniência", id: "conveniencia" }
+        { nome: "Conveniência", id: "conveniencia" },
+        { nome: "Analgésicos", id: "analgesicos" }
     ];
 
     return (
         <main className={s.Main}>
-            {/* Navegação por categorias */}
-            <nav className={s.categoriasNav}>
-                <h2 className={s.screenReaderOnly}>Navegação por categorias</h2>
-                <ul>
-                    {categoriasMenu.map((categoria) => (
-                        <li key={categoria.id}>
-                            <a href={`#${categoria.id}`} className={s.categoriaLink}>
-                                {categoria.nome}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+            <CategoriasNav categoriasMenu={categoriasMenu} />
 
-            {/* Carrossel de banners */}
-            <section className={s.carouselWrapper}>
-                <h2 className={s.sectionTitle}>Ofertas Especiais</h2>
-                <Swiper
-                    modules={[Autoplay, Pagination, Navigation]}
-                    autoplay={{ delay: 3000, disableOnInteraction: false }}
-                    pagination={{ clickable: true }}
-                    navigation
-                    loop={true}
-                    spaceBetween={5}
-                    slidesPerView={1}
-                    className={s.bannerSwiper}
-                >
-                    {bannerRemedio.map((src, i) => (
-                        <SwiperSlide key={i}>
-                            <img
-                                src={src}
-                                alt={`Oferta especial ${i + 1}`}
-                                className={s.bannerImagem}
-                                loading="lazy"
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </section>
+            {/* Usando o BannerCarousel */}
+            <BannerCarousel bannerRemedio={bannerRemedio} />
 
-            {/* Seção de produtos em destaque */}
-            <section className={s.produtosDestaque}>
-                <h2 className={s.sectionTitle}>Medicamentos em Destaque</h2>
-                <Swiper
-                    modules={[Navigation]}
-                    navigation
-                    spaceBetween={20}
-                    slidesPerView={2}
-                    breakpoints={{
-                        640: { slidesPerView: 3 },
-                        768: { slidesPerView: 4 },
-                        1024: { slidesPerView: 5 }
-                    }}
-                    className={s.produtosSwiper}
-                >
-                    {medicamentos.map((produto) => (
-                        <SwiperSlide key={produto.id}>
-                            <ProdutoCard
-                                produto={produto}
-                                onAddToCart={adicionarProdutoCarrinho}
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </section>
+            {/* Usando o MedicamentosDestaque */}
+            <ItensDestaque
+                medicamentos={medicamentos}
+                adicionarProdutoCarrinho={adicionarProdutoCarrinho}
+            />
 
-            {/* Seção de categorias (exemplo adicional) */}
             <section className={s.categoriasSection}>
                 <h2 className={s.sectionTitle}>Navegue por Categorias</h2>
                 <div className={s.categoriasGrid}>
@@ -144,10 +90,12 @@ export default function Inicio() {
                     ))}
                 </div>
             </section>
+
+
+
         </main>
     );
 }
-
 // Componente de Card de Produto separado para melhor organização
 function ProdutoCard({ produto, onAddToCart }) {
     const [quantidade, setQuantidade] = useState(1);
