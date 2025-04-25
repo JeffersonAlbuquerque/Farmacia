@@ -2,7 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
-import s from '../../Pages/Inicio/inicio.module.scss';
+import s from './ItensDestaque.module.scss';
 import ProdutoCard from '../ProdutoCard/ProdutoCard' // Certifique-se de que o ProdutoCard está corretamente importado
 
 const ItensDestaque = ({ medicamentos, adicionarProdutoCarrinho }) => {
@@ -12,7 +12,7 @@ const ItensDestaque = ({ medicamentos, adicionarProdutoCarrinho }) => {
             <Swiper
                 modules={[Navigation]}
                 navigation
-                spaceBetween={20}
+                spaceBetween={15}
                 slidesPerView={2}
                 breakpoints={{
                     640: { slidesPerView: 3 },

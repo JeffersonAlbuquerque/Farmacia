@@ -90,7 +90,11 @@ export default function Inicio({ carrinho, setCarrinho }) {
                     ))}
                 </div>
             </section>
-
+            {/* Usando o MedicamentosDestaque */}
+            <ItensDestaque
+                medicamentos={medicamentos}
+                adicionarProdutoCarrinho={adicionarProdutoCarrinho}
+            />
 
 
         </main>

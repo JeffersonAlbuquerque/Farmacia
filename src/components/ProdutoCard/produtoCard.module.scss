@@ -1,0 +1,247 @@
+// Variáveis
+$primary-color: #2a7f62;
+$secondary-color: #f8f9fa;
+$accent-color: #ff6b6b;
+$text-color: #333;
+$light-text: #6c757d;
+$border-radius: 8px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Card de produto
+.card {
+    background-color: white;
+    border-radius: $border-radius;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: $transition;
+    border: 1px solid #e9ecef;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .imgProduto {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .infor {
+        padding: 1rem;
+        flex-grow: 1;
+
+        .categoria {
+            font-size: 0.8rem;
+            color: $light-text;
+            margin: 0 0 0.5rem;
+        }
+
+        .desc {
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+            font-weight: 600;
+            min-height: 2.5rem;
+        }
+
+        .precoWrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .preco {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: $primary-color;
+            margin: 0;
+        }
+
+        .desconto {
+            font-size: 0.8rem;
+            background-color: $accent-color;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: $border-radius;
+            margin: 0;
+        }
+
+        .controlado {
+            font-size: 0.7rem;
+            color: #dc3545;
+            margin: 0.5rem 0 0;
+            font-weight: 500;
+        }
+    }
+
+    .campoCompra {
+        padding: 0 1rem 1rem;
+        margin-top: auto;
+
+        .campoCompraDois {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: $border-radius;
+            overflow: hidden;
+            width: 100%;
+
+            .btnAtribuir {
+                background-color: $secondary-color;
+                border: none;
+                padding: 0.5rem;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: $transition;
+                flex: 1;
+                max-width: 40px;
+
+                &:hover {
+                    background-color: #e9ecef;
+                }
+
+                &:first-child {
+                    border-right: 1px solid #dee2e6;
+                }
+
+                &:last-child {
+                    border-left: 1px solid #dee2e6;
+                }
+            }
+
+            .quantidade {
+                margin: 0;
+                padding: 0.5rem;
+                text-align: center;
+                flex: 2;
+            }
+        }
+
+        .Comprar {
+            width: 100%;
+            padding: 0.6rem;
+            background-color: $primary-color;
+            color: white;
+            border: none;
+            border-radius: $border-radius;
+            font-weight: 600;
+            cursor: pointer;
+            transition: $transition;
+
+            &:hover {
+                background-color: darken($primary-color, 10%);
+                transform: translateY(-2px);
+            }
+        }
+    }
+}
+
+// Adicione estas media queries ao seu CSS existente
+
+// Mantenha seu CSS original e adicione estas media queries
+
+@media (max-width: 768px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+
+        .imgProduto {
+            height: 180px; // Altura fixa para padronização
+        }
+
+        .infor {
+            padding: 1rem;
+
+            .desc {
+                min-height: auto; // Remove altura fixa
+                margin-bottom: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .precoWrapper {
+                margin: 0.5rem 0;
+            }
+
+            .controlado {
+                margin-top: 0.5rem;
+            }
+        }
+
+        .campoCompra {
+            padding: 0 1rem 1rem;
+
+            .Comprar {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        .imgProduto {
+            height: 150px;
+        }
+
+        .infor {
+            padding: 0.8rem;
+
+            .desc {
+                font-size: 0.95rem;
+            }
+
+            .preco {
+                font-size: 1.1rem;
+            }
+        }
+
+        .campoCompra {
+            padding: 0 0.8rem 0.8rem;
+        }
+    }
+}
+
+// Layout otimizado para telas muito pequenas
+@media (max-width: 400px) {
+    .card {
+        .infor {
+            .desc {
+                font-size: 0.9rem;
+            }
+
+            .preco {
+                font-size: 1rem;
+            }
+
+            .desconto {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.4rem;
+            }
+        }
+
+        .campoCompra {
+            .Comprar {
+                font-size: 0.9rem;
+                padding: 0.5rem;
+            }
+
+            .btnAtribuir {
+                padding: 0.4rem;
+                font-size: 0.9rem;
+            }
+
+            .quantidade {
+                padding: 0.4rem;
+            }
+        }
+    }
+}
