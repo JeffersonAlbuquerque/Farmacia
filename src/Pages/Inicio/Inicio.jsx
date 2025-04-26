@@ -5,7 +5,7 @@ import s from '../../Pages/Inicio/inicio.module.scss';
 // Componentes separados
 import CategoriasNav from '../../components/categorias/CategoriasNav';
 import BannerCarousel from '../../components/bannerCarousel/BannerCarousel';
-import ItensDestaque from '../../components/itensCategoria/ItensDestaque';
+import SecaoItens from '../../components/itensCategoria/ItensDestaque';
 
 // Imagens do Banner
 import banner1 from '../../assets/Banners/Banner1.png';
@@ -70,7 +70,7 @@ export default function Inicio({ carrinho, setCarrinho }) {
             <BannerCarousel bannerRemedio={bannerRemedio} />
 
             {/* Usando o MedicamentosDestaque */}
-            <ItensDestaque
+            <SecaoItens
                 medicamentos={medicamentos}
                 adicionarProdutoCarrinho={adicionarProdutoCarrinho}
             />
@@ -90,69 +90,12 @@ export default function Inicio({ carrinho, setCarrinho }) {
                     ))}
                 </div>
             </section>
+
             {/* Usando o MedicamentosDestaque */}
-            <ItensDestaque
+            <SecaoItens
                 medicamentos={medicamentos}
                 adicionarProdutoCarrinho={adicionarProdutoCarrinho}
             />
-
-
         </main>
-    );
-}
-// Componente de Card de Produto separado para melhor organização
-function ProdutoCard({ produto, onAddToCart }) {
-    const [quantidade, setQuantidade] = useState(1);
-
-    const aumentarQuantidade = () => setQuantidade(prev => prev + 1);
-    const diminuirQuantidade = () => setQuantidade(prev => (prev > 1 ? prev - 1 : 1));
-
-    return (
-        <article className={s.card}>
-            <img
-                src={produto.img_url}
-                alt={produto.nome}
-                className={s.imgProduto}
-                loading="lazy"
-            />
-            <div className={s.infor}>
-                <p className={s.categoria}>{produto.categoria_nome}</p>
-                <h3 className={s.desc}>{produto.nome}</h3>
-                <div className={s.precoWrapper}>
-                    <p className={s.preco}>R$ {produto.preco.toFixed(2)}</p>
-                    <p className={s.desconto}>12% OFF</p>
-                </div>
-                {produto.controlado && (
-                    <p className={s.controlado}>Produto Controlado</p>
-                )}
-            </div>
-
-            <div className={s.campoCompra}>
-                <div className={s.campoCompraDois}>
-                    <button
-                        className={s.btnAtribuir}
-                        onClick={diminuirQuantidade}
-                        aria-label="Diminuir quantidade"
-                    >
-                        -
-                    </button>
-                    <p className={s.quantidade}>{quantidade}</p>
-                    <button
-                        className={s.btnAtribuir}
-                        onClick={aumentarQuantidade}
-                        aria-label="Aumentar quantidade"
-                    >
-                        +
-                    </button>
-                </div>
-                <button
-                    className={s.Comprar}
-                    onClick={() => onAddToCart(produto.id, quantidade)}
-                    aria-label={`Adicionar ${quantidade} ${produto.nome} ao carrinho`}
-                >
-                    Comprar
-                </button>
-            </div>
-        </article>
     );
 }

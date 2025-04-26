@@ -143,50 +143,12 @@ $transition: all 0.3s ease;
         }
     }
 }
-
-// Adicione estas media queries ao seu CSS existente
-
-// Mantenha seu CSS original e adicione estas media queries
-
-@media (max-width: 768px) {
-    .card {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-
-        .imgProduto {
-            height: 180px; // Altura fixa para padronização
-        }
-
-        .infor {
-            padding: 1rem;
-
-            .desc {
-                min-height: auto; // Remove altura fixa
-                margin-bottom: 0.5rem;
-                font-size: 1rem;
-            }
-
-            .precoWrapper {
-                margin: 0.5rem 0;
-            }
-
-            .controlado {
-                margin-top: 0.5rem;
-            }
-        }
-
-        .campoCompra {
-            padding: 0 1rem 1rem;
-
-            .Comprar {
-                width: 100%;
-            }
-        }
-    }
-}
-
+// Responsividade para mobile
 @media (max-width: 576px) {
+    .sectionTitle {
+        font-size: 1.3rem;
+    }
+
     .card {
         .imgProduto {
             height: 150px;
@@ -196,7 +158,7 @@ $transition: all 0.3s ease;
             padding: 0.8rem;
 
             .desc {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
 
             .preco {
@@ -206,42 +168,6 @@ $transition: all 0.3s ease;
 
         .campoCompra {
             padding: 0 0.8rem 0.8rem;
-        }
-    }
-}
-
-// Layout otimizado para telas muito pequenas
-@media (max-width: 400px) {
-    .card {
-        .infor {
-            .desc {
-                font-size: 0.9rem;
-            }
-
-            .preco {
-                font-size: 1rem;
-            }
-
-            .desconto {
-                font-size: 0.7rem;
-                padding: 0.15rem 0.4rem;
-            }
-        }
-
-        .campoCompra {
-            .Comprar {
-                font-size: 0.9rem;
-                padding: 0.5rem;
-            }
-
-            .btnAtribuir {
-                padding: 0.4rem;
-                font-size: 0.9rem;
-            }
-
-            .quantidade {
-                padding: 0.4rem;
-            }
         }
     }
 }

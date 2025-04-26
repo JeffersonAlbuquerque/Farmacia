@@ -1,6 +1,7 @@
 // ProdutoCard.jsx
 import React, { useState } from 'react';
-import s from '../../Pages/Inicio/inicio.module.scss';
+import s from './produtoCard.module.scss';
+import { Link } from 'react-router-dom';
 
 const ProdutoCard = ({ produto, onAddToCart }) => {
     const [quantidade, setQuantidade] = useState(1);
@@ -10,23 +11,25 @@ const ProdutoCard = ({ produto, onAddToCart }) => {
 
     return (
         <article className={s.card}>
-            <img
-                src={produto.img_url}
-                alt={produto.nome}
-                className={s.imgProduto}
-                loading="lazy"
-            />
-            <div className={s.infor}>
-                <p className={s.categoria}>{produto.categoria_nome}</p>
-                <h3 className={s.desc}>{produto.nome}</h3>
-                <div className={s.precoWrapper}>
-                    <p className={s.preco}>R$ {produto.preco.toFixed(2)}</p>
-                    <p className={s.desconto}>12% OFF</p>
+            <Link to={`/produto/${produto.id}`} className={s.linkProduto}>
+                <img
+                    src={produto.img_url}
+                    alt={produto.nome}
+                    className={s.imgProduto}
+                    loading="lazy"
+                />
+                <div className={s.infor}>
+                    <p className={s.categoria}>{produto.categoria_nome}</p>
+                    <h3 className={s.desc}>{produto.nome}</h3>
+                    <div className={s.precoWrapper}>
+                        <p className={s.preco}>R$ {produto.preco.toFixed(2)}</p>
+                        <p className={s.desconto}>12% OFF</p>
+                    </div>
+                    {produto.controlado && (
+                        <p className={s.controlado}>Produto Controlado</p>
+                    )}
                 </div>
-                {produto.controlado && (
-                    <p className={s.controlado}>Produto Controlado</p>
-                )}
-            </div>
+            </Link>
 
             <div className={s.campoCompra}>
                 <div className={s.campoCompraDois}>

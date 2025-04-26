@@ -17,7 +17,7 @@ $transition: all 0.3s ease;
     padding: 1rem 0;
     width: 100%;
 
-    &Filho {
+    .headerFilho {
         max-width: 1400px;
         margin: 0 auto;
         padding: 0 2rem;
@@ -26,6 +26,7 @@ $transition: all 0.3s ease;
         align-items: center;
         flex-wrap: wrap;
         gap: 1.5rem;
+
 
         @media (max-width: 768px) {
             padding: 0 1rem;
@@ -98,6 +99,7 @@ $transition: all 0.3s ease;
         margin: 1rem 0 0;
     }
 }
+
 
 nav {
     ul {
@@ -208,4 +210,8 @@ nav {
     nav ul li div {
         display: none; // Esconde textos em telas muito pequenas
     }
+}
+.btnCarrinho{
+    border: none;
+    background-color: transparent;
 }

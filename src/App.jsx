@@ -7,6 +7,7 @@ import Inicio from './Pages/Inicio/Inicio.jsx';
 import CarrinhoC from './components/carrinhoCompras/Carrinho.jsx';
 import LoginU from './Pages/LoginUsuario/LoginCadastro.jsx';
 import PagePedidos from './components/acompanharPedidos/Pedidos.jsx';
+import GaleriaProduto from './Pages/GaleriaProduto/GaleriaProduto.jsx'
 
 import './GlobalStyle/globalStyle.scss';
 
@@ -32,6 +33,27 @@ export default function App() {
         <Route path="/" element={<Inicio carrinho={carrinho} setCarrinho={setCarrinho} />} />
         <Route path="/login" element={<LoginU />} />
         <Route path="/pedidos" element={<PagePedidos />} />
+        <Route
+  path="/produto/:id"
+  element={<GaleriaProduto adicionarProdutoCarrinho={(idProduto, quantidade) => {
+    const produtoExistente = carrinho.find(item => item.id === idProduto);
+
+    if (produtoExistente) {
+      setCarrinho(prevCarrinho =>
+        prevCarrinho.map(item =>
+          item.id === idProduto
+            ? { ...item, quantidade: item.quantidade + quantidade }
+            : item
+        )
+      );
+    } else {
+      setCarrinho(prevCarrinho => [
+        ...prevCarrinho,
+        { id: idProduto, quantidade }
+      ]);
+    }
+  }} />}
+/>
         {/* Removido o carrinho como rota, pois ele será um modal global */}
       </Routes>
 
