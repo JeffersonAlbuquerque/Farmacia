@@ -161,11 +161,11 @@ const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
                     <div className={s.controleQuantidade}>
                         <h3>Quantidade:</h3>
                         <div className={s.quantidadeInput}>
-                            <button onClick={adicionarProdutoCarrinho} disabled={quantidade <= 1}>
+                            <button disabled={quantidade <= 1}>
                                 −
                             </button>
                             <span>{quantidade}</span>
-                            <button onClick={aumentarQuantidade} disabled={quantidade >= produto.estoque}>
+                            <button disabled={quantidade >= produto.estoque}>
                                 +
                             </button>
                         </div>
