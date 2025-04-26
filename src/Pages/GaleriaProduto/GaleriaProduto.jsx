@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import s from './GaleriaProduto.module.scss';
+import s from './galeriaProduto.module.scss';
 
 const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
     const { id } = useParams();
