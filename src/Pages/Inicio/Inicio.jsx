@@ -3,9 +3,12 @@ import axios from "axios";
 import s from '../../Pages/Inicio/inicio.module.scss';
 
 // Componentes separados
-import CategoriasNav from '../../components/categorias/CategoriasNav';
+import Cat from '../../components/categorias/Cat';  // Corrigido para um único nome de componente
 import BannerCarousel from '../../components/bannerCarousel/BannerCarousel';
+import CategoriasSection from "../../components/categorias/CategoriasSection";
+import CategoriasNav from '../../components/categorias/CategoriasNav'
 import SecaoItens from '../../components/itensCategoria/ItensDestaque';
+import ItensPorCat from '../../components/itensCategoria/ItensCategoria'
 
 // Imagens do Banner
 import banner1 from '../../assets/Banners/Banner1.png';
@@ -17,6 +20,8 @@ import banner6 from '../../assets/Banners/Banner6.png';
 
 export default function Inicio({ carrinho, setCarrinho }) {
     const [bannerRemedio, setBannerRemedio] = useState([banner1, banner2, banner3, banner4, banner5, banner6]);
+    const [categorias, setCategorias] = useState([]);  // Mudando para array vazio
+    const [categoriasCadastradas, setCategoriasCadastradas] = useState([])
     const [medicamentos, setMedicamentos] = useState([]);
 
     const adicionarProdutoCarrinho = (produtoId, quantidade = 1) => {
@@ -46,56 +51,40 @@ export default function Inicio({ carrinho, setCarrinho }) {
             }
         };
 
+        const listarCategorias = async () => {
+            try {
+                const resposta = await axios.get("https://bancodadosfarmacia.onrender.com/categorias");
+                setCategorias(resposta.data);
+            } catch (error) {
+                console.error("Erro ao buscar categorias", error);
+            }
+        };
+
         listarMedicamentos();
+        listarCategorias();
     }, []);
 
-    const categoriasMenu = [
-        { nome: "Dor e Febre", id: "dor-febre" },
-        { nome: "Infantil", id: "infantil" },
-        { nome: "Gripe e Resfriado", id: "gripe-resfriado" },
-        { nome: "Vitaminas", id: "vitaminas" },
-        { nome: "Primeiros Socorros", id: "primeiros-socorros" },
-        { nome: "Beleza", id: "beleza" },
-        { nome: "Sistema Digestivo", id: "sistema-digestivo" },
-        { nome: "Higiene", id: "higiene" },
-        { nome: "Conveniência", id: "conveniencia" },
-        { nome: "Analgésicos", id: "analgesicos" }
-    ];
+
 
     return (
         <main className={s.Main}>
-            <CategoriasNav categoriasMenu={categoriasMenu} />
+            <CategoriasNav categorias={Cat} />
 
             {/* Usando o BannerCarousel */}
             <BannerCarousel bannerRemedio={bannerRemedio} />
 
-            {/* Usando o MedicamentosDestaque */}
+            {/* Usando o SecaoItens para exibir medicamentos em destaque */}
             <SecaoItens
                 medicamentos={medicamentos}
                 adicionarProdutoCarrinho={adicionarProdutoCarrinho}
             />
 
-            <section className={s.categoriasSection}>
-                <h2 className={s.sectionTitle}>Navegue por Categorias</h2>
-                <div className={s.categoriasGrid}>
-                    {categoriasMenu.map((categoria) => (
-                        <a
-                            href={`#${categoria.id}`}
-                            key={categoria.id}
-                            className={s.categoriaCard}
-                        >
-                            <h3>{categoria.nome}</h3>
-                            <span>Ver produtos</span>
-                        </a>
-                    ))}
-                </div>
-            </section>
+            {/* Passando setCategorias para Cat */}
+            {/* Passando as categorias para o componente CategoriasSection */}
+            <CategoriasSection categorias={Cat} />
 
-            {/* Usando o MedicamentosDestaque */}
-            <SecaoItens
-                medicamentos={medicamentos}
-                adicionarProdutoCarrinho={adicionarProdutoCarrinho}
-            />
+            <ItensPorCat medicamentos={medicamentos} categoriasCadastradas={categorias} />
+            {/* Se necessário, adicione mais seções para exibir medicamentos por categoria */}
         </main>
     );
 }

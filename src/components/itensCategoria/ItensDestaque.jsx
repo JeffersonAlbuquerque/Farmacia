@@ -12,8 +12,8 @@ const ItensDestaque = ({ medicamentos, adicionarProdutoCarrinho }) => {
             <Swiper
                 modules={[Navigation]}
                 navigation
-                spaceBetween={15}
-                slidesPerView={2}
+                spaceBetween={20}
+                slidesPerView={1.2}
                 breakpoints={{
                     640: { slidesPerView: 3 },
                     768: { slidesPerView: 4 },

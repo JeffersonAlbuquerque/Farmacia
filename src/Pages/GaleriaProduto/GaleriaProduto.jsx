@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import s from './galeriaProduto.module.scss';
-
+import carrinhoC from '../../components/ProdutoCard/ProdutoCard'
 const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
     const { id } = useParams();
     const [produto, setProduto] = useState(null);
@@ -177,7 +177,7 @@ const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
                             className={s.botaoComprar}
                             onClick={() => adicionarProdutoCarrinho(produto, quantidade)}
                             disabled={produto.estoque <= 0}
-                        >
+                        > Adicionar Ao Carrinho
                         </button>
                         <button 
                             className={`${s.botaoFavorito} ${favorito ? s.ativo : ''}`}
@@ -186,28 +186,7 @@ const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
                             {favorito ? 'Favoritado ✓' : 'Favoritar'}
                         </button>
                     </div>
-                    
-                    <div className={s.compartilhar}>
-                        <span>Compartilhar:</span>
-                        <button className={s.botaoCompartilhar}>
-                            Compartilhar
-                        </button>
-                    </div>
-                    
-                    <div className={s.garantias}>
-                        <div className={s.garantiaItem}>
-                            <span className={s.iconeGarantia}>✓</span>
-                            <span>Produto original</span>
-                        </div>
-                        <div className={s.garantiaItem}>
-                            <span className={s.iconeGarantia}>🛡️</span>
-                            <span>Qualidade garantida</span>
-                        </div>
-                        <div className={s.garantiaItem}>
-                            <span className={s.iconeGarantia}>🌱</span>
-                            <span>Entrega sustentável</span>
-                        </div>
-                    </div>
+            
                 </div>
             </div>
             
@@ -215,9 +194,6 @@ const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
             <div className={s.detalhesProduto}>
                 <div className={s.tabs}>
                     <button className={`${s.tab} ${s.ativo}`}>Descrição</button>
-                    <button className={s.tab}>Informações Técnicas</button>
-                    <button className={s.tab}>Modo de Usar</button>
-                    <button className={s.tab}>Efeitos Colaterais</button>
                 </div>
                 
                 <div className={s.conteudoTab}>
@@ -237,6 +213,8 @@ const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
             </div>
             
             {/* Produtos Relacionados (simulado) */}
+            
+            {/*
             <div className={s.produtosRelacionados}>
                 <h2>Produtos Relacionados</h2>
                 <div className={s.listaRelacionados}>
@@ -248,7 +226,7 @@ const GaleriaProduto = ({ adicionarProdutoCarrinho }) => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div>*/}
 
             {/* Modal */}
             {modalAberto && (

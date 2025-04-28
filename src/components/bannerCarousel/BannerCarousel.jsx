@@ -3,14 +3,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import s from '../../Pages/Inicio/inicio.module.scss';
+import s from './carrousel.module.scss';
 
 const BannerCarousel = ({ bannerRemedio }) => {
     return (
         <section className={s.carouselWrapper}>
             <h2 className={s.sectionTitle}>Ofertas Especiais</h2>
             <Swiper
-                modules={[Autoplay, Pagination, Navigation]}
+                modules={[Autoplay, Navigation]}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}
                 pagination={{ clickable: true }}
                 navigation

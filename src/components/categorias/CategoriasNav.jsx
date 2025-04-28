@@ -1,12 +1,11 @@
 import React from 'react';
-import s from '../../Pages/Inicio/inicio.module.scss';
+import s from './categoriasNav.module.scss';
 
-const CategoriasNav = ({ categoriasMenu }) => {
+const CategoriasNav = ({ categorias }) => {
     return (
         <nav className={s.categoriasNav}>
-            <h2 className={s.screenReaderOnly}>Navegação por categorias</h2>
             <ul>
-                {categoriasMenu.map((categoria) => (
+                {categorias.map((categoria) => (
                     <li key={categoria.id}>
                         <a href={`#${categoria.id}`} className={s.categoriaLink}>
                             {categoria.nome}
@@ -15,7 +14,9 @@ const CategoriasNav = ({ categoriasMenu }) => {
                 ))}
             </ul>
         </nav>
-    );
-};
+
+
+    )
+}
 
 export default CategoriasNav;
