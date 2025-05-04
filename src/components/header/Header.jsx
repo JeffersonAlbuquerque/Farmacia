@@ -13,6 +13,9 @@ import carrinhoIcon from '../../assets/carrinhoCompras.png';
 
 // Componente Header recebe a função toggleCarrinho via props
 export default function Header({ toggleCarrinho }) {
+    // Recupera o nome do usuário armazenado no localStorage
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+
     return (
         // Container principal do cabeçalho
         <header className={s.header}>
@@ -31,16 +34,27 @@ export default function Header({ toggleCarrinho }) {
                 {/* Menu de navegação do usuário */}
                 <nav>
                     <ul>
-                        {/* Link para login ou cadastro */}
-                        <li>
-                            <Link className={s.link} to='/login'>
-                                <img src={usuario} alt="Login" />
-                                <div>
-                                    <span>Entrar</span>
-                                    <span>ou Cadastrar</span>
-                                </div>
-                            </Link>
-                        </li>
+                        {/* Exibe nome do usuário se ele estiver logado, senão exibe 'Entrar' */}
+                        {usuarioLogado ? (
+                            <li>
+                                <Link className={s.link} to='/perfil'>
+                                    <img src={usuario} alt="Usuário" />
+                                    <div>
+                                        <span>Bem-vindo, {usuarioLogado.nome}</span>
+                                    </div>
+                                </Link>
+                            </li>
+                        ) : (
+                            <li>
+                                <Link className={s.link} to='/login'>
+                                    <img src={usuario} alt="Login" />
+                                    <div>
+                                        <span>Entrar</span>
+                                        <span>ou Cadastrar</span>
+                                    </div>
+                                </Link>
+                            </li>
+                        )}
 
                         {/* Link para acompanhar os pedidos */}
                         <li>

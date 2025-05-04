@@ -1,0 +1,237 @@
+// infoUsuario.module.scss
+
+// Variáveis Globais Farmacêuticas
+$primary-color: #1a7fbd; // Azul confiança
+$secondary-color: #4CAF50; // Verde saúde
+$accent-color: #FF9800; // Laranja alerta
+$text-color: #333333; // Texto escuro
+$light-bg: #f8f9fa; // Fundo claro
+$white: #ffffff;
+$gray-light: #e9ecef;
+$border-radius: 8px;
+$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+$transition: all 0.2s ease;
+
+// Layout Centralizado
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: $light-bg;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; // Evita encostar nas bordas laterais em telas grandes
+    box-sizing: border-box;
+    gap: 2rem; // Espaço entre sidebar e main
+    flex-wrap: wrap;
+}
+
+.sidebar {
+    width: 260px;
+    background: $white;
+    padding: 2rem 1.5rem;
+    box-shadow: $box-shadow;
+    border-right: 1px solid $gray-light;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.sidebarHeader {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $gray-light;
+    width: 100%;
+}
+
+.titulo {
+    font-size: 1.5rem;
+    color: $primary-color;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: "💊"; // Ícone farmácia
+        font-size: 1.8rem;
+    }
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.navItem,
+.navItemAtivo {
+    padding: 0.75rem 1rem;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: $transition;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    color: $text-color;
+
+    &:hover {
+        background-color: lighten($primary-color, 45%);
+    }
+}
+
+.navItemAtivo {
+    background-color: lighten($primary-color, 40%);
+    color: $primary-color;
+    font-weight: 600;
+    border-left: 3px solid $primary-color;
+}
+
+.novo {
+    background-color: $accent-color;
+    color: $white;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    margin-left: auto;
+    font-weight: 700;
+}
+
+.main {
+    flex: 1;
+    padding: 2.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.subtitulo {
+    color: $primary-color;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: $secondary-color;
+        margin: 0.5rem auto 0;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    background: $white;
+    padding: 2rem;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: lighten($text-color, 20%);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid $gray-light;
+    border-radius: $border-radius;
+    background-color: $white;
+    color: $text-color;
+    font-size: 1rem;
+    transition: $transition;
+
+    &:disabled {
+        background-color: $light-bg;
+        color: $text-color;
+        cursor: not-allowed;
+    }
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.botaoEditar {
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: $border-radius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &::before {
+        content: "✏️";
+        font-size: 1rem;
+    }
+}
+
+// Responsividade
+@media (max-width: 992px) {
+    .sidebar {
+        width: auto;
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .main {
+        padding: 1.5rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .subtitulo {
+        font-size: 1.4rem;
+    }
+
+    .buttonContainer {
+        button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
